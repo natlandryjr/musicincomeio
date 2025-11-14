@@ -81,6 +81,18 @@ export const env = new Proxy({} as z.infer<typeof envSchema>, {
 let cachedClientEnv: z.infer<typeof clientEnvSchema> | null = null;
 
 export function getClientEnv(): z.infer<typeof clientEnvSchema> {
+  // During build time, env vars may not be available
+  // Return placeholder values that will be replaced at runtime
+  if (typeof window === "undefined" && !process.env.NEXT_PUBLIC_SUPABASE_URL) {
+    // Build time - return placeholder values
+    return {
+      NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co",
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-key",
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "pk_placeholder",
+      NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+    } as z.infer<typeof clientEnvSchema>;
+  }
+  
   if (!cachedClientEnv) {
     cachedClientEnv = clientEnvSchema.parse({
       NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
