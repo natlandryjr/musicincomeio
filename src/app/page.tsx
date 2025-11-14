@@ -29,7 +29,7 @@ export default function Home() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="mb-12"
+          className="mb-16 flex justify-center sm:justify-start"
         >
           <Logo size="lg" />
         </motion.div>

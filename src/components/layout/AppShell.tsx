@@ -155,7 +155,9 @@ export default function AppShell({ title, children, user }: AppShellProps) {
             <header className="sticky top-0 z-30 border-b border-border/40 bg-background/80 backdrop-blur">
               <div className="flex flex-col gap-4 px-10 py-6 lg:flex-row lg:items-center lg:justify-between">
                 <div>
-                  <Logo size="sm" className="mb-2" />
+                  <div className="mb-3">
+                    <Logo size="sm" />
+                  </div>
                   <h1 className="text-3xl font-bold leading-tight">
                     {title ?? "Dashboard"}
                   </h1>
@@ -261,10 +263,10 @@ function NavList({ currentPath, onNavigate }: NavListProps) {
 
 function BrandLockup() {
   return (
-    <Link href="/" className="flex items-center gap-3 rounded-2xl border border-border/50 bg-gradient-to-r from-primary/30 via-transparent to-transparent px-4 py-3 text-sm text-foreground transition-all hover:border-primary/70 hover:bg-primary/20">
-      <Logo size="md" />
+    <Link href="/" className="flex items-center gap-2.5 rounded-2xl border border-border/50 bg-gradient-to-r from-primary/30 via-transparent to-transparent px-3.5 py-2.5 text-sm text-foreground transition-all hover:border-primary/70 hover:bg-primary/20">
+      <Logo size="sm" />
       <div className="flex flex-col leading-tight">
-        <span className="text-xs uppercase tracking-[0.2em] text-muted">Every royalty, one home</span>
+        <span className="text-[10px] uppercase tracking-[0.2em] text-muted">Every royalty, one home</span>
       </div>
     </Link>
   );

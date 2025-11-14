@@ -16,15 +16,15 @@ export type LogoProps = {
  */
 export function Logo({ variant = "full", size = "md", className }: LogoProps) {
   const sizeClasses = {
-    sm: { icon: "h-6 w-6", text: "text-sm" },
-    md: { icon: "h-8 w-8", text: "text-base" },
-    lg: { icon: "h-12 w-12", text: "text-xl" },
+    sm: { icon: "h-7 w-7", text: "text-sm", gap: "gap-2" },
+    md: { icon: "h-9 w-9", text: "text-base", gap: "gap-2.5" },
+    lg: { icon: "h-12 w-12", text: "text-xl", gap: "gap-3" },
   };
 
   const currentSize = sizeClasses[size];
 
   if (variant === "icon") {
-    return <LogoIcon className={cn(currentSize.icon, className)} />;
+    return <LogoIcon className={cn(currentSize.icon, "flex-shrink-0", className)} />;
   }
 
   if (variant === "text") {
@@ -32,9 +32,9 @@ export function Logo({ variant = "full", size = "md", className }: LogoProps) {
   }
 
   return (
-    <div className={cn("flex items-center gap-3", className)}>
-      <LogoIcon className={currentSize.icon} />
-      <StyledLogoText size={size} />
+    <div className={cn("flex items-center", currentSize.gap, className)}>
+      <LogoIcon className={cn(currentSize.icon, "flex-shrink-0")} />
+      <StyledLogoText size={size} className="flex-shrink-0" />
     </div>
   );
 }
@@ -43,19 +43,20 @@ function LogoIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 48 48"
-      className={className}
+      className={cn("aspect-square", className)}
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMidYMid meet"
     >
-      {/* Left half of M - Blue equalizer bars */}
-      <rect x="6" y="32" width="6" height="12" rx="3" fill="#3B82F6" />
-      <rect x="12" y="28" width="6" height="16" rx="3" fill="#3B82F6" />
-      <rect x="18" y="20" width="6" height="24" rx="3" fill="#3B82F6" />
+      {/* Left half of M - Blue equalizer bars (increasing height) */}
+      <rect x="4" y="36" width="5" height="8" rx="2.5" fill="#3B82F6" />
+      <rect x="10" y="30" width="5" height="14" rx="2.5" fill="#3B82F6" />
+      <rect x="16" y="18" width="5" height="26" rx="2.5" fill="#3B82F6" />
       
-      {/* Right half of M - Green equalizer bars */}
-      <rect x="24" y="20" width="6" height="24" rx="3" fill="#10B981" />
-      <rect x="30" y="28" width="6" height="16" rx="3" fill="#10B981" />
-      <rect x="36" y="32" width="6" height="12" rx="3" fill="#10B981" />
+      {/* Right half of M - Green equalizer bars (decreasing height) */}
+      <rect x="27" y="18" width="5" height="26" rx="2.5" fill="#10B981" />
+      <rect x="33" y="30" width="5" height="14" rx="2.5" fill="#10B981" />
+      <rect x="39" y="36" width="5" height="8" rx="2.5" fill="#10B981" />
     </svg>
   );
 }

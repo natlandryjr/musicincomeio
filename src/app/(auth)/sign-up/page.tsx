@@ -35,9 +35,9 @@ export default function SignUpPage() {
   }
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center bg-background px-4 py-16">
+    <main className="relative flex min-h-screen flex-col items-center justify-center bg-background px-4 py-16">
       <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 via-transparent to-transparent" />
-      <div className="absolute top-8 left-1/2 -translate-x-1/2">
+      <div className="absolute top-8 z-10">
         <Logo size="md" />
       </div>
       <Card className="relative w-full max-w-md border border-border/60 bg-panel/90">
