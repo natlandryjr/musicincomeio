@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+import { Logo } from "@/components/brand";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -56,6 +57,9 @@ export default function SignInPage() {
   return (
     <main className="relative flex min-h-screen items-center justify-center bg-background px-4 py-16">
       <div className="absolute inset-0 bg-gradient-to-b from-primary/20 via-transparent to-transparent" />
+      <div className="absolute top-8 left-1/2 -translate-x-1/2">
+        <Logo size="md" />
+      </div>
       <Card className="relative w-full max-w-md border border-border/60 bg-panel/90">
         <CardHeader className="space-y-3 text-center">
           <CardTitle className="text-3xl font-semibold">Welcome back</CardTitle>

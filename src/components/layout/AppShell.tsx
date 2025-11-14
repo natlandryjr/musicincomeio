@@ -10,14 +10,13 @@ import {
   Library,
   Menu,
   Moon,
-  Music4,
-  PieChart,
   ShieldCheck,
   Sun,
   Wallet2,
 } from "lucide-react";
 
 import SignOutButton from "@/components/SignOutButton";
+import { Logo } from "@/components/brand";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -100,7 +99,7 @@ export default function AppShell({ title, children, user }: AppShellProps) {
               </SheetTrigger>
               <SheetContent side="left" className="flex h-full w-80 flex-col gap-6 border-border/40">
                 <SheetHeader className="gap-2">
-                  <SheetTitle className="text-lg font-semibold">MusicIncome.io</SheetTitle>
+                  <Logo size="sm" />
                   <SheetDescription>Navigate your revenue tools.</SheetDescription>
                 </SheetHeader>
                 <nav className="flex-1 overflow-y-auto pr-2">
@@ -156,9 +155,9 @@ export default function AppShell({ title, children, user }: AppShellProps) {
             <header className="sticky top-0 z-30 border-b border-border/40 bg-background/80 backdrop-blur">
               <div className="flex flex-col gap-4 px-10 py-6 lg:flex-row lg:items-center lg:justify-between">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-muted">MusicIncome.io</p>
+                  <Logo size="sm" className="mb-2" />
                   <h1 className="text-3xl font-bold leading-tight">
-                    {title ?? "MusicIncome.io"}
+                    {title ?? "Dashboard"}
                   </h1>
                 </div>
                 <div className="flex items-center gap-3 text-xs text-muted">
@@ -262,16 +261,12 @@ function NavList({ currentPath, onNavigate }: NavListProps) {
 
 function BrandLockup() {
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-border/50 bg-gradient-to-r from-primary/30 via-transparent to-transparent px-4 py-3 text-sm text-foreground">
-      <span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-primary/20 text-primary">
-        <Music4 className="h-5 w-5 animate-pulse" aria-hidden="true" />
-        <PieChart className="absolute -bottom-1.5 -right-1.5 h-4 w-4 rounded-full border border-primary/70 bg-secondary text-black shadow" aria-hidden="true" />
-      </span>
+    <Link href="/" className="flex items-center gap-3 rounded-2xl border border-border/50 bg-gradient-to-r from-primary/30 via-transparent to-transparent px-4 py-3 text-sm text-foreground transition-all hover:border-primary/70 hover:bg-primary/20">
+      <Logo size="md" />
       <div className="flex flex-col leading-tight">
-        <span className="text-xs uppercase tracking-[0.2em] text-muted">MusicIncome.io</span>
-        <span className="text-base font-semibold">Every royalty, one home</span>
+        <span className="text-xs uppercase tracking-[0.2em] text-muted">Every royalty, one home</span>
       </div>
-    </div>
+    </Link>
   );
 }
 
