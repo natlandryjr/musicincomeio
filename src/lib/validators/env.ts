@@ -39,32 +39,67 @@ const clientEnvSchema = envSchema.pick({
 });
 
 /**
- * Validated environment variables
+ * Validated environment variables (lazy initialization)
  * Use this instead of process.env throughout the app
+ * Only validates when first accessed at runtime
  */
-export const env = envSchema.parse({
-  NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
-  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
-  STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
-  STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
-  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-  RESEND_API_KEY: process.env.RESEND_API_KEY,
-  NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-  NODE_ENV: process.env.NODE_ENV,
+let cachedEnv: z.infer<typeof envSchema> | null = null;
+
+export function getEnv(): z.infer<typeof envSchema> {
+  if (!cachedEnv) {
+    cachedEnv = envSchema.parse({
+      NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+      STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+      STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+      GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+      GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+      RESEND_API_KEY: process.env.RESEND_API_KEY,
+      NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+      NODE_ENV: process.env.NODE_ENV,
+    });
+  }
+  return cachedEnv;
+}
+
+/**
+ * Getter for env (backward compatibility)
+ * Validates on first access
+ */
+export const env = new Proxy({} as z.infer<typeof envSchema>, {
+  get(_target, prop) {
+    return getEnv()[prop as keyof z.infer<typeof envSchema>];
+  },
 });
 
 /**
- * Client-safe environment variables
+ * Client-safe environment variables (lazy initialization)
  * Safe to use in client components
  */
-export const clientEnv = clientEnvSchema.parse({
-  NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
-  NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+let cachedClientEnv: z.infer<typeof clientEnvSchema> | null = null;
+
+export function getClientEnv(): z.infer<typeof clientEnvSchema> {
+  if (!cachedClientEnv) {
+    cachedClientEnv = clientEnvSchema.parse({
+      NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+      NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    });
+  }
+  return cachedClientEnv;
+}
+
+/**
+ * Getter for clientEnv (backward compatibility)
+ * Validates on first access
+ */
+export const clientEnv = new Proxy({} as z.infer<typeof clientEnvSchema>, {
+  get(_target, prop) {
+    return getClientEnv()[prop as keyof z.infer<typeof clientEnvSchema>];
+  },
 });
 
 // Type exports for autocomplete
