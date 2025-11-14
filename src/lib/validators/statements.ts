@@ -27,11 +27,11 @@ export const sourceSystemSchema = z.enum([
 export const createStatementSchema = z.object({
   provider: statementProviderSchema,
   source_system: sourceSystemSchema,
-  raw_payload: z.record(z.unknown()),
+  raw_payload: z.record(z.string(), z.unknown()),
   label: z.string().optional(),
   file_name: z.string().optional(),
-  file_size: z.number().int().positive().optional(),
-  parsed_entries_count: z.number().int().nonnegative().optional(),
+  file_size: z.number().min(1).int().optional(),
+  parsed_entries_count: z.number().min(0).int().optional(),
 });
 
 /**
