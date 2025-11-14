@@ -120,9 +120,10 @@ export default function IncomeCharts({
   );
 }
 
-function PieTooltip({ active, payload }: TooltipProps<number, string>) {
-  if (!active || !payload?.length) return null;
-  const { name, value } = payload[0].payload as { name: string; value: number };
+function PieTooltip(props: any) {
+  const { active, payload } = props as { active?: boolean; payload?: Array<{ payload: { name: string; value: number } }> };
+  if (!active || !payload || !payload.length) return null;
+  const { name, value } = payload[0].payload;
   return (
     <div className="rounded-xl border border-border/60 bg-panel/80 px-3 py-2 text-xs text-foreground shadow-lg">
       <div className="font-semibold">{name}</div>
@@ -131,7 +132,8 @@ function PieTooltip({ active, payload }: TooltipProps<number, string>) {
   );
 }
 
-function LineTooltip({ active, payload }: TooltipProps<number, string>) {
+function LineTooltip(props: any) {
+  const { active, payload } = props as { active?: boolean; payload?: Array<{ payload: { month: string; total: number } }> };
   if (!active || !payload?.length) return null;
   const { payload: point } = payload[0];
   return (

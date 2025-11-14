@@ -9,8 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
 
-const categoryVariants: Record<string, "accent" | "secondary" | "outline" | "muted"> = {
-  royalties: "secondary",
+const categoryVariants: Record<string, "accent" | "default" | "outline" | "muted"> = {
+  royalties: "default",
   registration: "accent",
   tax: "outline",
   general: "muted",

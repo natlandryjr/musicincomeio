@@ -302,7 +302,7 @@ function UserPanel({
           {displayEmail && <div className="text-xs text-muted">{displayEmail}</div>}
         </div>
         {plan && (
-          <Badge variant={plan === "pro" ? "secondary" : "muted"} className="capitalize">
+          <Badge variant={plan === "pro" ? "default" : "muted"} className="capitalize">
             {plan}
           </Badge>
         )}

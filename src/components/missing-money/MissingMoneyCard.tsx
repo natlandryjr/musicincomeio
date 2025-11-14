@@ -77,10 +77,10 @@ export function MissingMoneyCard({ analysis }: { analysis: MissingMoneyAnalysis 
                     <Badge
                       variant={
                         estimate.priority === "critical"
-                          ? "destructive"
+                          ? "danger"
                           : estimate.priority === "high"
                             ? "default"
-                            : "secondary"
+                            : "muted"
                       }
                     >
                       {estimate.priority}
@@ -102,7 +102,7 @@ export function MissingMoneyCard({ analysis }: { analysis: MissingMoneyAnalysis 
               </div>
 
               {estimate.actionUrl && (
-                <Button size="sm" variant="outline" asChild className="w-full">
+                <Button size="sm" variant="secondary" asChild className="w-full">
                   <a
                     href={estimate.actionUrl}
                     target="_blank"

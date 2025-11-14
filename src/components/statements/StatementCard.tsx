@@ -70,14 +70,14 @@ export function StatementCard({ statement }: { statement: RawStatement }) {
               <h3 className="text-lg font-semibold">{statement.label}</h3>
               <div className="flex items-center gap-2 mt-1">
                 <Badge variant="outline">{statement.provider}</Badge>
-                <Badge variant="secondary">{statement.source_system}</Badge>
+                <Badge variant="default">{statement.source_system}</Badge>
               </div>
             </div>
           </div>
           <div className="flex gap-2">
             <Button
               size="sm"
-              variant="outline"
+              variant="ghost"
               onClick={handleDownload}
               title="Download CSV"
             >
@@ -85,7 +85,7 @@ export function StatementCard({ statement }: { statement: RawStatement }) {
             </Button>
             <Button
               size="sm"
-              variant="outline"
+              variant="ghost"
               onClick={handleReprocess}
               disabled={isReprocessing}
               title="Reprocess statement"
@@ -94,7 +94,7 @@ export function StatementCard({ statement }: { statement: RawStatement }) {
             </Button>
             <Button
               size="sm"
-              variant="destructive"
+              variant="danger"
               onClick={handleDelete}
               disabled={isDeleting}
               title="Delete statement"

@@ -160,7 +160,7 @@ export default function IncomeManager() {
               Log statements and advances from every source to reconcile payouts.
             </CardDescription>
           </div>
-          <Badge variant="secondary" className="text-black">
+          <Badge variant="default" className="text-black">
             ${totals.total.toLocaleString(undefined, { maximumFractionDigits: 0 })} recorded
           </Badge>
         </CardHeader>

@@ -7,7 +7,7 @@ type Theme = "dark" | "light";
 type ThemeContextValue = {
   theme: Theme;
   toggleTheme: () => void;
-  setTheme: (theme: Theme) => void;
+  setTheme: (theme: Theme | ((prev: Theme) => Theme)) => void;
 };
 
 const ThemeContext = React.createContext<ThemeContextValue | undefined>(undefined);
@@ -27,13 +27,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setThemeState(initial);
   }, []);
 
-  const setTheme = React.useCallback((next: Theme) => {
-    setThemeState(next);
+  const setTheme = React.useCallback((next: Theme | ((prev: Theme) => Theme)) => {
+    const newTheme = typeof next === "function" ? next(theme) : next;
+    setThemeState(newTheme);
     const root = document.documentElement;
-    root.classList.toggle("light", next === "light");
-    root.setAttribute("data-theme", next);
-    window.localStorage.setItem(STORAGE_KEY, next);
-  }, []);
+    root.classList.toggle("light", newTheme === "light");
+    root.setAttribute("data-theme", newTheme);
+    window.localStorage.setItem(STORAGE_KEY, newTheme);
+  }, [theme]);
 
   const toggleTheme = React.useCallback(() => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));

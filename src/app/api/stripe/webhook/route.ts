@@ -32,8 +32,11 @@ export async function POST(req: NextRequest) {
       }
       break;
     }
-    case "customer.subscription.deleted":
-    case "customer.subscription.canceled": {
+    case "customer.subscription.deleted": {
+      // Handle subscription cancellation/deletion
+      // Note: canceled subscriptions trigger 'deleted' event
+      const subscription = event.data.object as Stripe.Subscription;
+      // Add subscription cleanup logic here if needed
       break;
     }
     default:

@@ -5,17 +5,9 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { MissingMoneyCard } from "@/components/missing-money";
 import { analyzeMissingMoney } from "@/lib/missing-money/detector";
 import type { UserProfile } from "@/lib/db/users";
+import type { IncomeEntry } from "@/lib/db/income";
 
 export const runtime = "nodejs";
-
-type IncomeEntry = {
-  amount: number;
-  source_type: string;
-  period_start: string;
-  period_end: string;
-  notes: string | null;
-  created_at: string;
-};
 
 const SOURCE_LABELS: Record<string, string> = {
   streaming: "Streaming",
@@ -61,7 +53,7 @@ export default async function DashboardPage() {
 
   const { data: entries } = await supabase
     .from("income_entries")
-    .select("amount, source_type, period_start, period_end, notes, created_at")
+    .select("*")
     .eq("user_id", user.id)
     .order("period_start", { ascending: false })
     .returns<IncomeEntry[]>();

@@ -231,7 +231,7 @@ export default function RoyaltyChecklist() {
                     {status && <span className="text-xs text-muted">{status.helper}</span>}
                   </div>
                 </div>
-                <Badge variant={row.status === "collecting" ? "secondary" : row.status === "not_registered" ? "accent" : "muted"}>
+                <Badge variant={row.status === "collecting" ? "default" : row.status === "not_registered" ? "accent" : "muted"}>
                   {status?.label ?? "Unknown"}
                 </Badge>
               </div>

@@ -151,7 +151,7 @@ export default async function BillingPage() {
             <div className="pt-4 border-t">
               {isPro ? (
                 <form action={handleManageBilling}>
-                  <Button type="submit" variant="outline">
+                  <Button type="submit" variant="secondary">
                     Manage Billing & Subscription
                   </Button>
                 </form>

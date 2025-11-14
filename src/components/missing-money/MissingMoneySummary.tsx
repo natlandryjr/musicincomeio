@@ -13,8 +13,8 @@ const CONFIDENCE_LABEL: Record<string, string> = {
   LOW: "Low",
 };
 
-const CONFIDENCE_VARIANT: Record<string, "secondary" | "accent" | "muted"> = {
-  HIGH: "secondary",
+const CONFIDENCE_VARIANT: Record<string, "default" | "accent" | "muted"> = {
+  HIGH: "default",
   MEDIUM: "accent",
   LOW: "muted",
 };
