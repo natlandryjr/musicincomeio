@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
+# Dependencies
+node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -9,33 +9,85 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+.pnp.js
 
-# testing
+# Testing
 /coverage
+*.lcov
+.nyc_output
 
-# next.js
+# Next.js
 /.next/
 /out/
-
-# production
 /build
+dist/
 
-# misc
-.DS_Store
-*.pem
+# Production
+*.tsbuildinfo
+next-env.d.ts
 
-# debug
+# Environment variables - NEVER commit these
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+.env.development
+.env.test
+.env.production
+
+# Vercel
+.vercel
+.vercel/*
+
+# Supabase
+.supabase/
+supabase/.temp/
+supabase/.branches/
+
+# Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# OS-generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
 
-# vercel
-.vercel
+# IDE / Editor
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.turbo/
+
+# Misc
+*.pem
+*.key
+*.cert
+.env.backup
+.env.save
