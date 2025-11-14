@@ -1,9 +1,9 @@
 "use client";
 import { createBrowserClient } from "@supabase/ssr";
+import { getClientEnv } from "@/lib/validators/env";
 
 export function createSupabaseBrowserClient() {
-  return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  // Use validated env vars with lazy initialization
+  const env = getClientEnv();
+  return createBrowserClient(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 }
