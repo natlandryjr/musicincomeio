@@ -5,8 +5,7 @@ import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { env } from "@/lib/validators/env";
 import { ROUTES, PLANS } from "@/lib/constants";
-
-const stripe = new Stripe(env.STRIPE_SECRET_KEY);
+import { getStripe } from "@/lib/stripe";
 
 type ActionResult<T = void> =
   | { success: true; data: T }
@@ -41,7 +40,7 @@ export async function createCheckoutSession(): Promise<ActionResult<{ url: strin
 
     // Create Stripe customer if doesn't exist
     if (!customerId) {
-      const customer = await stripe.customers.create({
+      const customer = await getStripe().customers.create({
         email: user.email,
         metadata: {
           supabase_user_id: user.id,
@@ -58,7 +57,7 @@ export async function createCheckoutSession(): Promise<ActionResult<{ url: strin
     }
 
     // Create checkout session
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       customer: customerId,
       line_items: [
         {
@@ -114,7 +113,7 @@ export async function createPortalSession(): Promise<ActionResult<{ url: string 
     }
 
     // Create portal session
-    const session = await stripe.billingPortal.sessions.create({
+    const session = await getStripe().billingPortal.sessions.create({
       customer: profile.stripe_customer_id,
       return_url: `${env.NEXT_PUBLIC_APP_URL}${ROUTES.BILLING}`,
     });
@@ -155,7 +154,7 @@ export async function cancelSubscription(): Promise<ActionResult> {
     }
 
     // Get active subscriptions
-    const subscriptions = await stripe.subscriptions.list({
+    const subscriptions = await getStripe().subscriptions.list({
       customer: profile.stripe_customer_id,
       status: "active",
       limit: 1,
@@ -166,7 +165,7 @@ export async function cancelSubscription(): Promise<ActionResult> {
     }
 
     // Cancel subscription at period end
-    await stripe.subscriptions.update(subscriptions.data[0].id, {
+    await getStripe().subscriptions.update(subscriptions.data[0].id, {
       cancel_at_period_end: true,
     });
 

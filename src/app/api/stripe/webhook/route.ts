@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import type Stripe from "stripe";
 
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
 
 export const runtime = "nodejs";
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
   let event: Stripe.Event;
 
   try {
-    event = stripe.webhooks.constructEvent(raw, sig!, whSecret);
+    event = getStripe().webhooks.constructEvent(raw, sig!, whSecret);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown webhook error";
     return new NextResponse(`Webhook Error: ${message}`, { status: 400 });
